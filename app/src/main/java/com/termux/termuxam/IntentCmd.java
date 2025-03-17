@@ -80,6 +80,17 @@ public class IntentCmd {
                     intent.putExtra(key, Uri.parse(value));
                 }
                 break;
+                case "--eual": {
+                    String key = cmd.getNextArgRequired();
+                    String value = cmd.getNextArgRequired();
+                    String[] strings = value.split(",");
+                    ArrayList<Uri> list = new ArrayList<>(strings.length);
+                    for (int i = 0; i < strings.length; i++) {
+                        list.add(Uri.parse(strings[i]));
+                    }
+                    intent.putParcelableArrayListExtra(key, list);
+                }
+                break;
                 case "--ecn": {
                     String key = cmd.getNextArgRequired();
                     String value = cmd.getNextArgRequired();
@@ -418,6 +429,7 @@ public class IntentCmd {
                 "    [--el <EXTRA_KEY> <EXTRA_LONG_VALUE> ...]",
                 "    [--ef <EXTRA_KEY> <EXTRA_FLOAT_VALUE> ...]",
                 "    [--eu <EXTRA_KEY> <EXTRA_URI_VALUE> ...]",
+                "    [--eual <EXTRA_KEY> <EXTRA_URI_VALUE>[,<EXTRA_URI_VALUE>] ...]",
                 "    [--ecn <EXTRA_KEY> <EXTRA_COMPONENT_NAME_VALUE>]",
                 "    [--eia <EXTRA_KEY> <EXTRA_INT_VALUE>[,<EXTRA_INT_VALUE...]]",
                 "        (mutiple extras passed as Integer[])",
